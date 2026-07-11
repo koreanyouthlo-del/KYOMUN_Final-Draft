@@ -920,6 +920,11 @@ article a:hover {
     flex: 0 0 auto;
 }
 
+.ticker-highlight {
+    color: #ffd166;
+    font-weight: 800;
+}
+
 @keyframes marquee {
     from { transform: translateX(0); }
     to   { transform: translateX(var(--marquee-shift)); }
