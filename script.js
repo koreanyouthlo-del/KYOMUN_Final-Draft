@@ -164,9 +164,7 @@ style.textContent = `
 document.head.appendChild(style);
 
 const createRecruitingChairsPopout = () => {
-    if (document.body.classList.contains('home-page')) {
-        return;
-    }
+    return;
 
     const popout = document.createElement('div');
     popout.className = 'recruiting-popout';
