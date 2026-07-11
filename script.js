@@ -213,3 +213,53 @@ window.addEventListener('resize', () => {
 
 // Initialize
 console.log('IYMUN Website Loaded Successfully!');
+
+// Setup robust marquee: duplicate base content until it fills the container, then animate one copy width.
+function setupMarquees() {
+    const wraps = document.querySelectorAll('.ticker-wrap');
+    wraps.forEach(wrap => {
+        const inner = wrap.querySelector('.ticker-inner');
+        if (!inner) return;
+
+        const originalHTML = inner.innerHTML.trim();
+        if (!originalHTML) return;
+
+        inner.innerHTML = originalHTML;
+        const baseWidth = inner.scrollWidth;
+        if (baseWidth === 0) return;
+
+        let safety = 0;
+        while (inner.scrollWidth < wrap.clientWidth + baseWidth && safety < 20) {
+            inner.innerHTML += originalHTML;
+            safety += 1;
+        }
+
+        inner.style.setProperty('--marquee-shift', `-${baseWidth}px`);
+        const speed = 75; // pixels per second
+        const duration = Math.max(6, baseWidth / speed);
+        inner.style.setProperty('--marquee-duration', `${duration}s`);
+
+        inner.style.animation = 'none';
+        void inner.offsetWidth;
+        inner.style.animation = '';
+    });
+}
+
+function refreshMarquees() {
+    setupMarquees();
+    if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(setupMarquees);
+    }
+}
+
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', refreshMarquees);
+} else {
+    refreshMarquees();
+}
+
+let _marqueeResize;
+window.addEventListener('resize', () => {
+    clearTimeout(_marqueeResize);
+    _marqueeResize = setTimeout(refreshMarquees, 150);
+});
