@@ -432,6 +432,17 @@ background:
     animation: fadeIn 1.2s ease-in-out 0.5s both;
 }
 
+.hero-content .hero-subtext {
+    margin-top: 0.4rem;
+    color: #ffffff;
+    font-size: 1.15rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    opacity: 0.95;
+    animation: fadeIn 1.2s ease-in-out 0.8s both;
+}
+
 .hero-content .subtitle {
     font-size: 1.3rem;
     margin-bottom: 1rem;
